@@ -4,8 +4,9 @@ export(Array, Texture) var textures
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	if textures.size() > 0:
+		var index = rng.randi_range(0, textures.size()-1)
+		texture = textures[index]
