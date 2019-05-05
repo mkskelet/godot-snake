@@ -29,7 +29,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if gameOver and Input.is_action_pressed("ui_accept"):
+	if (not gameOver) and $StartGame.visible and player.didMove:
+		$StartGame.hide()
+	elif gameOver and Input.is_action_pressed("ui_accept"):
 		restart_game()
 	elif not gameOver:
 		if applePosition == Vector2(-1, -1):
@@ -59,6 +61,7 @@ func on_apple_eaten():
 func restart_game() -> void:
 	update_score(0)
 	$GameOver.hide()
+	$StartGame.show()
 	if not apple == null:
 		apple.free()
 	applePosition = Vector2(-1, -1)
@@ -70,3 +73,4 @@ func restart_game() -> void:
 func update_score(var newScore : int) -> void:
 	score = newScore
 	$Score.text = score as String
+

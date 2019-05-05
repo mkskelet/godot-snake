@@ -5,18 +5,18 @@
 [ext_resource path="res://Titania.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://snake_body.png" type="Texture" id=4]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=1]
 size = 24
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="VisualShaderNodeColorConstant" id=1]
+[sub_resource type="VisualShaderNodeColorConstant" id=2]
 output_port_for_preview = 0
 constant = Color( 0.183594, 0.183594, 0.183594, 1 )
 
-[sub_resource type="VisualShader" id=2]
+[sub_resource type="VisualShader" id=3]
 code = "shader_type canvas_item;
 
 
@@ -47,12 +47,12 @@ void light() {
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2( 580, 140 )
-nodes/fragment/2/node = SubResource( 1 )
+nodes/fragment/2/node = SubResource( 2 )
 nodes/fragment/2/position = Vector2( 220, 140 )
 nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0, 2, 1, 0, 1 )
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 24
@@ -76,14 +76,26 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 margin_right = 1000.0
 margin_bottom = 600.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 1 )
 text = "Game Over!
 Press Enter / A to restart..."
 align = 1
 valign = 1
 
+[node name="StartGame" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_right = 1000.0
+margin_bottom = 600.0
+custom_fonts/font = SubResource( 1 )
+text = "Press any arrow key to start the game!"
+align = 1
+valign = 1
+
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 3 )
+material = SubResource( 4 )
 position = Vector2( 505, 315 )
 scale = Vector2( 24.2, 16.2 )
 z_index = -1

@@ -16,6 +16,7 @@ var tail = [] # Array of tail Sprites
 signal player_collided
 signal apple_eaten
 var canMove = false
+var didMove = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,7 +35,14 @@ func _physics_process(delta):
 	var up = Input.is_action_pressed("ui_up")
 	var down = Input.is_action_pressed("ui_down")
 	
+	if (not didMove) and (right or left or up or down):
+		didMove = true
+	elif not didMove:
+		return
+	
 	# Set proper movement vector
+	var changeDirection = false
+	
 	if right and (tail.size() == 0 or lastMovement != Vector2(-step, 0)):
 		currentMovement = Vector2(step, 0)
 	elif left and (tail.size() == 0 or lastMovement != Vector2(step, 0)):
@@ -44,10 +52,13 @@ func _physics_process(delta):
 	elif down and (tail.size() == 0 or lastMovement !=  Vector2(0, -step)):
 		currentMovement = Vector2(0, step)
 	
+	if currentMovement != lastMovement:
+		changeDirection = true
+	
 	# only move when ready
 	timeToNextTick -= delta
 	
-	if timeToNextTick > 0: return
+	if timeToNextTick > 0 and not changeDirection: return
 	else: timeToNextTick = tick
 	
 	# Collision detection
@@ -112,6 +123,8 @@ func reset() -> void:
 		t.free()
 	
 	tick = 0.35
+	lastMovement = Vector2(0, 0)
 	currentMovement = Vector2(0, 0)
 	grow = false
 	timeToNextTick = tick
+	didMove = false
