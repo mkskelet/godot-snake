@@ -46,7 +46,6 @@ func _process(delta):
 			apple = appleScene.instance()
 			add_child(apple)
 			apple.position = applePosition
-			print("- Spawning apple at: ", applePosition)
 
 func on_player_collided():
 	player.canMove = false

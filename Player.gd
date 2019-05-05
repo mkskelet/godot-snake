@@ -20,7 +20,6 @@ var didMove = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("- Initializing player")
 	tailScene = preload("res://Tail.tscn")
 	reset()
 
